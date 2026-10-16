@@ -1,0 +1,16 @@
+**/node_modules
+**/dist
+**/.vite
+**/*.tsbuildinfo
+.git
+.github
+.vscode
+.env
+.env.*
+!.env.example
+test-results
+playwright-report
+blob-report
+e2e
+docs
+*.md

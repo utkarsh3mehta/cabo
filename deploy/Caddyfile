@@ -1,0 +1,28 @@
+# Caddy obtains and renews a TLS certificate for {$DOMAIN} automatically
+# (ports 80 and 443 must be reachable from the internet), redirects HTTP to
+# HTTPS and proxies everything — including Socket.IO WebSocket upgrades — to
+# the app container.
+{
+	email {$ACME_EMAIL}
+}
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	reverse_proxy app:3000 {
+		# Socket.IO long-polling and WebSocket traffic need no extra settings;
+		# Caddy upgrades connections transparently.
+		health_uri /healthz
+		health_interval 15s
+	}
+
+	header {
+		-Server
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}
