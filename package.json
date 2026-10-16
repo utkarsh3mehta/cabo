@@ -1,0 +1,24 @@
+{
+  "name": "cabo-online",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Browser-based multiplayer implementation of the Cabo card game",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@12.14.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @cabo/server --filter @cabo/web dev",
+    "build": "pnpm --filter @cabo/web build && pnpm --filter @cabo/server build",
+    "start": "node apps/server/dist/index.js",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm build && playwright test",
+    "test:all": "pnpm typecheck && pnpm test && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "socket.io-client": "4.8.4"
+  }
+}
